@@ -164,7 +164,7 @@ gModelID=""
 let gCallOpen=2
 
 #
-# 
+#
 #
 gTargetFileNames=""
 
@@ -1211,7 +1211,7 @@ function _findPlistBuddy()
   if [ ! -f /usr/libexec/PlistBuddy ];
     then
       echo 'PlistBuddy not found ... Downloading PlistBuddy ...'
-      curl https://raw.github.com/Piker-Alpha/freqVectorsEdit.sh/master/Tools/PlistBuddy -o /usr/libexec/PlistBuddy --create-dirs
+      curl https://github.com/melxman/freqVectorsEdit.sh/tree/coffeelaketest/Tools/PlistBuddy -o /usr/libexec/PlistBuddy --create-dirs
       chmod +x /usr/libexec/PlistBuddy
       printf 'Done.'
   fi
@@ -1271,7 +1271,7 @@ function _getModelByBoardID()
   #
   # Model/board-id arrays from models.cfg
   #
-  local modelData=("gHaswellModelData[@]" "gBroadwellModelData[@]" "gSkylakeModelData[@]" "gKabyLakeModelData[@]")
+  local modelData=("gHaswellModelData[@]" "gBroadwellModelData[@]" "gSkylakeModelData[@]" "gKabyLakeModelData[@]" "gCoffeeLakeModelData[@]")
   #
   # Loop through the available model data.
   #
@@ -1314,13 +1314,15 @@ function _showSupportedBoardIDsAndModels()
   # Setup a local variable pointing to a list with supported model data.
   #
   case "$1" in
-      Haswell) local modelDataList="gHaswellModelData[@]"
+      Haswell ) local modelDataList="gHaswellModelData[@]"
                ;;
-    Broadwell) local modelDataList="gBroadwellModelData[@]"
+    Broadwell ) local modelDataList="gBroadwellModelData[@]"
                ;;
-      Skylake) local modelDataList="gSkylakeModelData[@]"
+      Skylake ) local modelDataList="gSkylakeModelData[@]"
                ;;
-     KabyLake) local modelDataList="gKabyLakeModelData[@]"
+     KabyLake ) local modelDataList="gKabyLakeModelData[@]"
+                ;;
+     CoffeeLake ) local modelDataList="gCoffeeLakeModelDte[@]"
                ;;
   esac
   #
@@ -1378,7 +1380,7 @@ function _checkLibraryDirectory()
       #
       # Not there or damaged. Download it from the ssdtPRGen.sh repository.
       #
-      curl -o "${gDataPath}/Models.cfg" --silent https://raw.githubusercontent.com/Piker-Alpha/ssdtPRGen.sh/Beta/Data/Models.cfg
+      curl -o "${gDataPath}/Models.cfg" --silent https://raw.github.com/melxman/ssdtPRGen.sh/tree/coffee_lake_test/Data/Models.cfg
   fi
   #
   # Load model data.
@@ -1415,6 +1417,7 @@ function _getScriptArguments()
           printf "          Broadwell\n"
           printf "          Skylake\n"
           printf "          KabyLake\n"
+          printf "          CoffeeLake\n"
           #
           # Stop script (success).
           #
@@ -1430,6 +1433,7 @@ function _getScriptArguments()
           _showSupportedBoardIDsAndModels "Skylake"
           _showSupportedBoardIDsAndModels "Broadwell"
           _showSupportedBoardIDsAndModels "Haswell"
+          _showSupportedBoardIDsAndModels "CoffeeLake"
           #
           # Stop script (success).
           #
@@ -1450,6 +1454,8 @@ function _getScriptArguments()
                        ;;
             KABYLAKE ) _showSupportedBoardIDsAndModels "KabyLake"
                        ;;
+           CoffeeLake ) _showSupportedBoardIDsAndModels "CoffeeLake"
+                                  ;;
           esac
           #
           # Stop script (success).
